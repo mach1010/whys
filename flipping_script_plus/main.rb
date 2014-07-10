@@ -2,7 +2,7 @@ require_relative 'sublist'
 
 
 def work_with_list
-  puts "Substitute list: [R]ead or [E]dit:"
+  puts "Substitute list: [R]ead, [E]dit, [D]elete, or [B]ack:"
   option = gets.chomp.downcase
   
   case option
@@ -10,6 +10,11 @@ def work_with_list
       read_list
     when 'e'
       edit_list
+    when 'b'
+      File::open('sublist.rb', 'w') { |f| f << "$sub_list = #{$sub_list}"}
+      main
+    when 'd'
+      delete_list_item
     else
       puts "That's not an option"
       work_with_list
@@ -26,14 +31,39 @@ def edit_list
   $sub_list.each { |k, v| puts "replace " + k.upcase + " with " + v.upcase + "\n" }
   puts "enter new pair separated by a comma (if the pair exists it is replaced with your update)"
   edit_pair = gets.chomp.split(", ")
-  file = File::open('sublist.rb', 'w') do |f|
-    f << "$sub_list = #{$sub_list.merge!(Hash[edit_pair[0], edit_pair[1]])}"   
-  end
+  # file = File::open('sublist.rb', 'w') do |f|
+  #   f << "$sub_list = #{$sub_list.merge!(Hash[edit_pair[0], edit_pair[1]])}"
+  # end
+  $sub_list.merge!(Hash[edit_pair[0], edit_pair[1]])
   puts "done"
   work_with_list
 end
 
+def delete_list_item
+  puts "What pair would you like to delete? (enter first word only)"
+  delete_this = gets.chomp
+  puts delete_this + " - #{ $sub_list[delete_this] } pair deleted"
+  $sub_list.delete(delete_this)
+  # File::open('sublist.rb', 'w') do |f|
+  #   f << "$sub_list = #{$sub_list}"
+  # end
+  work_with_list
+end
+
 def flip_a_script
+  puts "Which file contains the script?"
+  script_name = gets.strip.downcase
+  open_script = File::read(script_name)
+  
+  $sub_list.each do |word, replacement|
+    open_script.gsub!(word, replacement)
+  end
+  
+  puts "done"
+  puts open_script
+  File::open(script_name, 'w') do |f|
+    f << open_script
+  end
   main
 end 
 

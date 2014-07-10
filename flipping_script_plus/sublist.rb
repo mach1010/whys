@@ -1,1 +1,1 @@
-$sub_list = {"Garth"=>"Darth", "Wayne"=>"Bane", "Stark"=>"Shark"}
+$sub_list = {"Stark"=>"Shark", "Wayne"=>"Bane", "Garth"=>"Darth", "Tony"=>"Baloney"}
