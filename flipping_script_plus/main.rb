@@ -31,9 +31,7 @@ def edit_list
   $sub_list.each { |k, v| puts "replace " + k.upcase + " with " + v.upcase + "\n" }
   puts "enter new pair separated by a comma (if the pair exists it is replaced with your update)"
   edit_pair = gets.chomp.split(", ")
-  # file = File::open('sublist.rb', 'w') do |f|
-  #   f << "$sub_list = #{$sub_list.merge!(Hash[edit_pair[0], edit_pair[1]])}"
-  # end
+
   $sub_list.merge!(Hash[edit_pair[0], edit_pair[1]])
   puts "done"
   work_with_list
@@ -44,9 +42,6 @@ def delete_list_item
   delete_this = gets.chomp
   puts delete_this + " - #{ $sub_list[delete_this] } pair deleted"
   $sub_list.delete(delete_this)
-  # File::open('sublist.rb', 'w') do |f|
-  #   f << "$sub_list = #{$sub_list}"
-  # end
   work_with_list
 end
 

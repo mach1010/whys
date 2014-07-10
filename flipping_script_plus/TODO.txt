@@ -1,0 +1,4 @@
+- improve pair input, ask for words individually and possibly pattern match for improper whatevs...
+- improve delete... possibly match for inclusion before and then confirm delete.
+- try statements for input sanitization?
+- script CRUD?
